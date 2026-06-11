@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #161616;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #f4f1f1;
+  -webkit-font-smoothing: antialiased;
+}
