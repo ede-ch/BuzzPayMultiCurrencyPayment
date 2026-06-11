@@ -12,12 +12,19 @@ class ExpirePaymentRequests extends Command
 
     public function handle(): int
     {
-        $count = PaymentRequest::pending()
-            ->where('expires_at', '<', now())
-            ->update(['status' => 'expired']);
+        try {
+            $count = PaymentRequest::pending()
+                ->where('expires_at', '<', now())
+                ->update(['status' => 'expired']);
 
-        $this->info("Expired {$count} payment request(s).");
+            $this->info("Expired {$count} payment request(s).");
 
-        return self::SUCCESS;
+            return self::SUCCESS;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Erro ao expirar pagamentos: ' . $e->getMessage());
+            $this->error('Failed to execute expiration. Check the logs.');
+
+            return self::FAILURE;
+        }
     }
 }
