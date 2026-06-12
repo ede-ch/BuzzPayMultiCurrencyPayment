@@ -2,11 +2,11 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Loader2, AlertCircle } from "lucide-react";
-import { register, ApiError, LoginResponse, RegisterPayload } from "@/lib/api";
+import { register, ApiError, RegisterPayload } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { ISO_4217_CURRENCIES, getCurrencySymbol } from "@/lib/currencies";
-import AuthSuccessCard from "@/components/AuthSuccessCard";
 
 const initialForm: RegisterPayload = {
   name: "",
@@ -19,10 +19,10 @@ const initialForm: RegisterPayload = {
 
 export default function RegisterForm() {
   const { setSession } = useAuth();
+  const router = useRouter();
   const [form, setForm] = useState<RegisterPayload>(initialForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
-  const [success, setSuccess] = useState<LoginResponse | null>(null);
 
   function update<K extends keyof RegisterPayload>(key: K, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -49,22 +49,11 @@ export default function RegisterForm() {
     try {
       const result = await register(form);
       setSession(result);
-      setSuccess(result);
+      router.replace("/dashboard");
     } catch (err) {
       setError(err as ApiError);
-    } finally {
       setLoading(false);
     }
-  }
-
-  if (success) {
-    return (
-      <AuthSuccessCard
-        title="Account created successfully"
-        subtitle={`Welcome, ${success.user.name}.`}
-        result={success}
-      />
-    );
   }
 
   const inputClassName =

@@ -2,18 +2,18 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Loader2, AlertCircle } from "lucide-react";
-import { login, ApiError, LoginResponse } from "@/lib/api";
+import { login, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import AuthSuccessCard from "@/components/AuthSuccessCard";
 
 export default function LoginForm() {
   const { setSession } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
-  const [success, setSuccess] = useState<LoginResponse | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,22 +29,11 @@ export default function LoginForm() {
     try {
       const result = await login(email, password);
       setSession(result);
-      setSuccess(result);
+      router.replace("/dashboard");
     } catch (err) {
       setError(err as ApiError);
-    } finally {
       setLoading(false);
     }
-  }
-
-  if (success) {
-    return (
-      <AuthSuccessCard
-        title="Login successful"
-        subtitle={`Welcome back, ${success.user.name}.`}
-        result={success}
-      />
-    );
   }
 
   return (
