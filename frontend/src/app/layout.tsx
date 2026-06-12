@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { AuthProvider } from "@/lib/auth";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -26,7 +27,7 @@ export default function RootLayout({
       className={`${manrope.variable} scroll-smooth`}
     >
       <body className="bg-ink font-sans text-white antialiased min-h-screen relative overflow-x-hidden">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
