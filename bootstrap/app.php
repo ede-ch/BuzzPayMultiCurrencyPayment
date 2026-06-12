@@ -18,4 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (\App\Exceptions\ExchangeRateUnavailableException $e) {
             return response()->json(['message' => $e->getMessage()], 503);
         });
+
+        $exceptions->render(function (\App\Exceptions\InvalidStatusTransitionException $e) {
+            return response()->json(['message' => $e->getMessage()], 422);
+        });
     })->create();

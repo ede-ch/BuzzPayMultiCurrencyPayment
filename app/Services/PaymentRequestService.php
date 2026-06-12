@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\InvalidStatusTransitionException;
 use App\Models\PaymentRequest;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -42,6 +43,10 @@ class PaymentRequestService
 
     public function updateStatus(PaymentRequest $paymentRequest, string $status, User $reviewer): PaymentRequest
     {
+        if (! $paymentRequest->isPending()) {
+            throw new InvalidStatusTransitionException("Only pending requests can be {$status}.");
+        }
+
         $paymentRequest->update([
             'status'      => $status,
             'reviewed_by' => $reviewer->id,

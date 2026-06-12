@@ -39,16 +39,9 @@ class PaymentRequestController extends Controller
         return new PaymentRequestResource($paymentRequest->load(['user', 'reviewer']));
     }
 
-    public function update(UpdatePaymentRequestRequest $request, PaymentRequest $paymentRequest): JsonResponse|PaymentRequestResource
+    public function update(UpdatePaymentRequestRequest $request, PaymentRequest $paymentRequest): PaymentRequestResource
     {
         $this->authorize('review', $paymentRequest);
-
-        if (! $paymentRequest->isPending()) {
-            return response()->json(
-                ['message' => 'Only pending requests can be ' . $request->status . '.'],
-                422
-            );
-        }
 
         $updated = $this->service->updateStatus($paymentRequest, $request->status, $request->user());
 
