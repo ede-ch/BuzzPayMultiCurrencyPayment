@@ -21,6 +21,14 @@ class PaymentRequestResource extends JsonResource
             'description'    => $this->description,
             'expires_at'     => $this->expires_at?->toISOString(),
             'created_at'     => $this->created_at?->toISOString(),
+            'user'           => [
+                'id'   => $this->user->id,
+                'name' => $this->user->name,
+            ],
+            'reviewer'       => $this->reviewer ? [
+                'id'   => $this->reviewer->id,
+                'name' => $this->reviewer->name,
+            ] : null,
         ];
     }
 }
