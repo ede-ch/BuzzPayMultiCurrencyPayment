@@ -58,7 +58,7 @@ class AuthTest extends TestCase
         $this->postJson('/api/auth/login', [
             'email'    => $user->email,
             'password' => 'wrong-password',
-        ])->assertStatus(422);
+        ])->assertStatus(401);
     }
 
     public function test_user_can_logout(): void
