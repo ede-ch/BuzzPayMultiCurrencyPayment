@@ -82,6 +82,34 @@ class PaymentRequestTest extends TestCase
         $this->assertDatabaseHas('payment_requests', ['amount_eur' => 10.0000]);
     }
 
+    public function test_create_with_invalid_currency_returns_422(): void
+    {
+        $this->fakeExchangeRate();
+
+        $this->actingAs($this->employee())
+            ->postJson('/api/payment-requests', [
+                'amount_local'  => 100.00,
+                'currency_code' => 'ZZZ',
+                'description'   => 'Invalid currency',
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('currency_code');
+    }
+
+    public function test_create_with_negative_amount_returns_422(): void
+    {
+        $this->fakeExchangeRate();
+
+        $this->actingAs($this->employee())
+            ->postJson('/api/payment-requests', [
+                'amount_local'  => -10,
+                'currency_code' => 'BRL',
+                'description'   => 'Negative amount',
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('amount_local');
+    }
+
     public function test_employee_can_only_see_own_requests(): void
     {
         $this->fakeExchangeRate();
