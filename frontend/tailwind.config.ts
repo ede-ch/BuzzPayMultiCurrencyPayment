@@ -2,8 +2,9 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/app/**/*.{ts,tsx}",
-    "./src/components/**/*.{ts,tsx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -25,12 +26,23 @@ const config: Config = {
         muted: {
           DEFAULT: "#a39a9c",
           dark: "#b7afb1",
+          light: "#b7afb1", // Adicionado para compatibilidade com o redesign
         },
+        // Cores de fundo e borda adicionadas para o redesign
+        "card-bg": "#141112",
+        "border-sec": "#363636",
       },
       fontFamily: {
         sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
         manrope: ["var(--font-manrope)", "sans-serif"],
         mono: ["var(--font-jetbrains)", "monospace"],
+      },
+      borderRadius: {
+        "12px": "12px",
+        "24px": "24px",
+      },
+      boxShadow: {
+        "glow-red": "0 0 15px rgba(198, 4, 2, 0.4)",
       },
       keyframes: {
         twinkle: {
