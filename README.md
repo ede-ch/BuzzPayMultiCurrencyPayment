@@ -4,7 +4,7 @@ A REST API built with Laravel 12 for managing multi-currency payment requests. E
 
 ## Demo / Project Video
 
-[**Insira aqui a URL do seu vídeo ou projeto rodando**](https://link-do-seu-video)
+> ⚠️ TODO: substituir por um link real do vídeo/demo antes da entrega (2026-06-13).
 
 ## Requirements
 
