@@ -16,12 +16,12 @@ class ExpirationTest extends TestCase
         $employee = User::factory()->create(['role' => 'employee']);
 
         $stale = PaymentRequest::factory()->for($employee)->create([
-            'status'     => 'pending',
+            'status' => 'pending',
             'expires_at' => now()->subHour(),
         ]);
 
         $fresh = PaymentRequest::factory()->for($employee)->create([
-            'status'     => 'pending',
+            'status' => 'pending',
             'expires_at' => now()->addHours(24),
         ]);
 
@@ -36,7 +36,7 @@ class ExpirationTest extends TestCase
         $employee = User::factory()->create(['role' => 'employee']);
 
         $approved = PaymentRequest::factory()->for($employee)->create([
-            'status'     => 'approved',
+            'status' => 'approved',
             'expires_at' => now()->subHour(),
         ]);
 

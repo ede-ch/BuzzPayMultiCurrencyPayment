@@ -4,10 +4,12 @@ namespace App\Console\Commands;
 
 use App\Models\PaymentRequest;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class ExpirePaymentRequests extends Command
 {
-    protected $signature   = 'payments:expire-pending';
+    protected $signature = 'payments:expire-pending';
+
     protected $description = 'Expire pending payment requests older than 48 hours';
 
     public function handle(): int
@@ -21,7 +23,7 @@ class ExpirePaymentRequests extends Command
 
             return self::SUCCESS;
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Erro ao expirar pagamentos: ' . $e->getMessage());
+            Log::error('Erro ao expirar pagamentos: '.$e->getMessage());
             $this->error('Failed to execute expiration. Check the logs.');
 
             return self::FAILURE;

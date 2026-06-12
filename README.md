@@ -67,7 +67,66 @@ Or run the command directly:
 php artisan payments:expire-pending
 ```
 
+## Caching
+
+Exchange rates fetched from the external API (`exchangerate-api.com`) are cached
+per target currency for `EXCHANGE_RATE_CACHE_TTL` seconds (default: `3600`, i.e.
+1 hour), using Laravel's cache (`database` driver in dev/prod, `array` driver in
+tests). This avoids hitting the external API on every payment request creation
+for currencies that have already been looked up recently.
+
+The `rate_fetched_at` value stored on each payment request reflects the moment
+the rate was **originally fetched from the source**, not the moment the payment
+request was created. So if a rate is served from cache, `rate_fetched_at` still
+tells you how stale that rate is relative to the source — which is the whole
+point of an audit/provenance field.
+
+Configure the TTL via `.env`:
+
+```
+EXCHANGE_RATE_CACHE_TTL=3600
+```
+
+## API Documentation
+
+Interactive API documentation is generated with [Scribe](https://scribe.knuckles.wtf/laravel)
+as a static page, including request/response examples, authentication details,
+and an OpenAPI spec.
+
+- Open `public/docs/index.html` directly in a browser, or
+- Start `php artisan serve` and visit `http://localhost:8000/docs`
+
+A Postman collection (`public/docs/collection.json`) and OpenAPI spec
+(`public/docs/openapi.yaml`) are also generated alongside the HTML docs.
+
+The generated docs are committed to the repository, so they're available
+out-of-the-box. To regenerate after changing endpoint annotations (in
+`AuthController` / `PaymentRequestController`):
+
+```bash
+php artisan scribe:generate
+```
+
+## Continuous Integration
+
+Every push and pull request to `main` runs via GitHub Actions
+(`.github/workflows/ci.yml`):
+
+1. Code style check — `composer lint` (Laravel Pint, check mode)
+2. Test suite — `composer test` (SQLite in-memory database)
+
+Run the same checks locally before pushing:
+
+```bash
+composer lint
+composer test
+```
+
 ## API Reference
+
+> For interactive documentation with request/response examples for every
+> endpoint, see [API Documentation](#api-documentation). The summary below is
+> a quick reference.
 
 ### Authentication
 

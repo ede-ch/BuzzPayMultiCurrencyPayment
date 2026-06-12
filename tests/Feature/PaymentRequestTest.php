@@ -37,9 +37,9 @@ class PaymentRequestTest extends TestCase
 
         $response = $this->actingAs($this->employee())
             ->postJson('/api/payment-requests', [
-                'amount_local'  => 110.00,
+                'amount_local' => 110.00,
                 'currency_code' => 'BRL',
-                'description'   => 'Office supplies',
+                'description' => 'Office supplies',
             ]);
 
         $response->assertStatus(201)
@@ -48,7 +48,7 @@ class PaymentRequestTest extends TestCase
         $this->assertDatabaseHas('payment_requests', [
             'currency_code' => 'BRL',
             'exchange_rate' => 5.5,
-            'status'        => 'pending',
+            'status' => 'pending',
         ]);
     }
 
@@ -58,9 +58,9 @@ class PaymentRequestTest extends TestCase
 
         $employee = $this->employee();
         $this->actingAs($employee)->postJson('/api/payment-requests', [
-            'amount_local'  => 55.00,
+            'amount_local' => 55.00,
             'currency_code' => 'BRL',
-            'description'   => 'Test',
+            'description' => 'Test',
         ]);
 
         $payment = PaymentRequest::first();
@@ -74,9 +74,9 @@ class PaymentRequestTest extends TestCase
         $this->fakeExchangeRate(5.0);
 
         $this->actingAs($this->employee())->postJson('/api/payment-requests', [
-            'amount_local'  => 50.00,
+            'amount_local' => 50.00,
             'currency_code' => 'BRL',
-            'description'   => 'Test',
+            'description' => 'Test',
         ]);
 
         $this->assertDatabaseHas('payment_requests', ['amount_eur' => 10.0000]);
@@ -88,9 +88,9 @@ class PaymentRequestTest extends TestCase
 
         $this->actingAs($this->employee())
             ->postJson('/api/payment-requests', [
-                'amount_local'  => 100.00,
+                'amount_local' => 100.00,
                 'currency_code' => 'ZZZ',
-                'description'   => 'Invalid currency',
+                'description' => 'Invalid currency',
             ])
             ->assertStatus(422)
             ->assertJsonValidationErrors('currency_code');
@@ -102,9 +102,9 @@ class PaymentRequestTest extends TestCase
 
         $this->actingAs($this->employee())
             ->postJson('/api/payment-requests', [
-                'amount_local'  => -10,
+                'amount_local' => -10,
                 'currency_code' => 'BRL',
-                'description'   => 'Negative amount',
+                'description' => 'Negative amount',
             ])
             ->assertStatus(422)
             ->assertJsonValidationErrors('amount_local');

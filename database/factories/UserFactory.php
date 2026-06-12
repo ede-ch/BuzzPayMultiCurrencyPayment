@@ -27,14 +27,14 @@ class UserFactory extends Factory
         $currencies = ['BRL', 'USD', 'GBP', 'JPY', 'MXN', 'EUR'];
 
         return [
-            'name'              => fake()->name(),
-            'email'             => fake()->unique()->safeEmail(),
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password'          => static::$password ??= Hash::make('password'),
-            'role'              => 'employee',
-            'country'           => fake()->country(),
-            'currency_code'     => fake()->randomElement($currencies),
-            'remember_token'    => Str::random(10),
+            'password' => static::$password ??= Hash::make('password'),
+            'role' => 'employee',
+            'country' => fake()->country(),
+            'currency_code' => fake()->randomElement($currencies),
+            'remember_token' => Str::random(10),
         ];
     }
 

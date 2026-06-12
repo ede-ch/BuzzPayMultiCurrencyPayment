@@ -29,15 +29,15 @@ class PaymentRequestService
         $rateData = $this->exchangeRate->getRate($data['currency_code']);
 
         return $user->paymentRequests()->create([
-            'amount_local'    => $data['amount_local'],
-            'currency_code'   => $data['currency_code'],
-            'amount_eur'      => round($data['amount_local'] / $rateData['rate'], 2),
-            'exchange_rate'   => $rateData['rate'],
-            'rate_source'     => $rateData['source'],
+            'amount_local' => $data['amount_local'],
+            'currency_code' => $data['currency_code'],
+            'amount_eur' => round($data['amount_local'] / $rateData['rate'], 2),
+            'exchange_rate' => $rateData['rate'],
+            'rate_source' => $rateData['source'],
             'rate_fetched_at' => $rateData['fetched_at'],
-            'description'     => $data['description'] ?? null,
-            'status'          => 'pending',
-            'expires_at'      => now()->addHours(48),
+            'description' => $data['description'] ?? null,
+            'status' => 'pending',
+            'expires_at' => now()->addHours(48),
         ]);
     }
 
@@ -48,7 +48,7 @@ class PaymentRequestService
         }
 
         $paymentRequest->update([
-            'status'      => $status,
+            'status' => $status,
             'reviewed_by' => $reviewer->id,
             'reviewed_at' => now(),
         ]);

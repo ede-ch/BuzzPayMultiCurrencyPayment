@@ -37,6 +37,7 @@ return [
 
     'exchangerate' => [
         'url' => env('EXCHANGE_RATE_API_URL', 'https://api.exchangerate-api.com/v4/latest'),
+        'cache_ttl' => env('EXCHANGE_RATE_CACHE_TTL', 3600),
     ],
 
 ];

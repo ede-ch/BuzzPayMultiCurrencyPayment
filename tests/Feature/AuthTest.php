@@ -13,12 +13,12 @@ class AuthTest extends TestCase
     private function validRegistrationData(array $overrides = []): array
     {
         return array_merge([
-            'name'                  => 'Test User',
-            'email'                 => 'test@example.com',
-            'password'              => 'password',
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
             'password_confirmation' => 'password',
-            'country'               => 'Brazil',
-            'currency_code'         => 'BRL',
+            'country' => 'Brazil',
+            'currency_code' => 'BRL',
         ], $overrides);
     }
 
@@ -43,7 +43,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create(['password' => bcrypt('password')]);
 
         $response = $this->postJson('/api/auth/login', [
-            'email'    => $user->email,
+            'email' => $user->email,
             'password' => 'password',
         ]);
 
@@ -56,14 +56,14 @@ class AuthTest extends TestCase
         $user = User::factory()->create(['password' => bcrypt('password')]);
 
         $this->postJson('/api/auth/login', [
-            'email'    => $user->email,
+            'email' => $user->email,
             'password' => 'wrong-password',
         ])->assertStatus(401);
     }
 
     public function test_user_can_logout(): void
     {
-        $user  = User::factory()->create();
+        $user = User::factory()->create();
         $token = $user->createToken('test')->plainTextToken;
 
         $this->withToken($token)

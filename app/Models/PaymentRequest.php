@@ -28,12 +28,12 @@ class PaymentRequest extends Model
     protected function casts(): array
     {
         return [
-            'amount_local'    => 'decimal:4',
-            'amount_eur'      => 'decimal:4',
-            'exchange_rate'   => 'decimal:6',
+            'amount_local' => 'decimal:4',
+            'amount_eur' => 'decimal:4',
+            'exchange_rate' => 'decimal:6',
             'rate_fetched_at' => 'datetime',
-            'reviewed_at'     => 'datetime',
-            'expires_at'      => 'datetime',
+            'reviewed_at' => 'datetime',
+            'expires_at' => 'datetime',
         ];
     }
 

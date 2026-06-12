@@ -1,0 +1,371 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Buzzvel Multi-Currency Payment API",
+        "_postman_id": "8483da77-34ea-42b8-a3cb-933849edf86e",
+        "description": "REST API for submitting, reviewing and approving multi-currency payment requests across employees in different countries.",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "\nEndpoints for registering, authenticating and logging out users via\nLaravel Sanctum personal access tokens.",
+            "item": [
+                {
+                    "name": "Register",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Alice Ferreira\",\"email\":\"alice@example.com\",\"password\":\"password123\",\"country\":\"Brazil\",\"currency_code\":\"BRL\",\"password_confirmation\":\"password123\"}"
+                        },
+                        "description": "Creates a new user account and returns a Sanctum bearer token that\ncan be used to authenticate subsequent requests. New accounts default\nto the `employee` role.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Alice Ferreira\",\n    \"email\": \"alice@example.com\",\n    \"role\": \"employee\",\n    \"country\": \"Brazil\",\n    \"currency_code\": \"BRL\"\n  },\n  \"access_token\": \"1|abcdef1234567890\",\n  \"token_type\": \"Bearer\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"The email has already been taken.\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"alice@example.com\",\"password\":\"password123\"}"
+                        },
+                        "description": "Authenticates a user with email and password and returns a new\nSanctum bearer token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Alice Ferreira\",\n    \"email\": \"alice@example.com\",\n    \"role\": \"employee\",\n    \"country\": \"Brazil\",\n    \"currency_code\": \"BRL\"\n  },\n  \"access_token\": \"2|fedcba0987654321\",\n  \"token_type\": \"Bearer\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"The provided credentials are incorrect.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Revokes the bearer token used to authenticate the current request."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Logged out successfully.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"Unauthenticated.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Payment Requests",
+            "description": "\nManage multi-currency payment requests. All endpoints in this group\nrequire a valid Sanctum bearer token (`Authorization: Bearer {token}`).\nEmployees can create requests and view their own; finance users can\nview all requests and approve or reject pending ones.",
+            "item": [
+                {
+                    "name": "List payment requests",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/payment-requests",
+                            "query": [
+                                {
+                                    "key": "status",
+                                    "value": "pending",
+                                    "description": "Filter by status. One of `pending`, `approved`, `rejected`, `expired`.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/payment-requests?status=pending"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns a paginated list of payment requests. Employees see only\ntheir own requests; finance users see requests from everyone."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"status\": \"pending\",\n      \"amount_local\": \"550.00\",\n      \"currency_code\": \"BRL\",\n      \"amount_eur\": \"100.00\",\n      \"exchange_rate\": \"5.500000\",\n      \"rate_source\": \"exchangerate-api.com\",\n      \"rate_fetched_at\": \"2026-06-12T12:00:00.000000Z\",\n      \"description\": \"Office supplies\",\n      \"expires_at\": \"2026-06-14T12:00:00.000000Z\",\n      \"created_at\": \"2026-06-12T12:00:00.000000Z\",\n      \"user\": { \"id\": 1, \"name\": \"Alice Ferreira\" },\n      \"reviewer\": null\n    }\n  ],\n  \"links\": {\n    \"first\": \"http:\/\/localhost\/api\/payment-requests?page=1\",\n    \"last\": \"http:\/\/localhost\/api\/payment-requests?page=1\",\n    \"prev\": null,\n    \"next\": null\n  },\n  \"meta\": {\n    \"current_page\": 1,\n    \"from\": 1,\n    \"last_page\": 1,\n    \"per_page\": 15,\n    \"to\": 1,\n    \"total\": 1\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a payment request",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/payment-requests",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/payment-requests"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"amount_local\":550,\"currency_code\":\"BRL\",\"description\":\"Office supplies\"}"
+                        },
+                        "description": "Submits a new payment request in the authenticated user's local\ncurrency. The EUR exchange rate is fetched (and cached) at creation\ntime and stored alongside the request \u2014 it never changes afterwards.\nThe request is created with `status: pending` and `expires_at` set to\n48 hours from now."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"status\": \"pending\",\n    \"amount_local\": \"550.00\",\n    \"currency_code\": \"BRL\",\n    \"amount_eur\": \"100.00\",\n    \"exchange_rate\": \"5.500000\",\n    \"rate_source\": \"exchangerate-api.com\",\n    \"rate_fetched_at\": \"2026-06-12T12:00:00.000000Z\",\n    \"description\": \"Office supplies\",\n    \"expires_at\": \"2026-06-14T12:00:00.000000Z\",\n    \"created_at\": \"2026-06-12T12:00:00.000000Z\",\n    \"user\": { \"id\": 1, \"name\": \"Alice Ferreira\" },\n    \"reviewer\": null\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"The currency code field is invalid.\",\n  \"errors\": { \"currency_code\": [\"The selected currency code is invalid.\"] }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 503,
+                            "body": "{\n  \"message\": \"Failed to fetch exchange rate from exchangerate-api.com\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a payment request",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/payment-requests\/:paymentRequest_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/payment-requests\/:paymentRequest_id",
+                            "variable": [
+                                {
+                                    "id": "paymentRequest_id",
+                                    "key": "paymentRequest_id",
+                                    "value": 1,
+                                    "description": "The ID of the paymentRequest."
+                                },
+                                {
+                                    "id": "paymentRequest",
+                                    "key": "paymentRequest",
+                                    "value": 1,
+                                    "description": "The ID of the payment request."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns the details of a single payment request. Employees may only\nview their own requests; finance users may view any request."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"status\": \"pending\",\n    \"amount_local\": \"550.00\",\n    \"currency_code\": \"BRL\",\n    \"amount_eur\": \"100.00\",\n    \"exchange_rate\": \"5.500000\",\n    \"rate_source\": \"exchangerate-api.com\",\n    \"rate_fetched_at\": \"2026-06-12T12:00:00.000000Z\",\n    \"description\": \"Office supplies\",\n    \"expires_at\": \"2026-06-14T12:00:00.000000Z\",\n    \"created_at\": \"2026-06-12T12:00:00.000000Z\",\n    \"user\": { \"id\": 1, \"name\": \"Alice Ferreira\" },\n    \"reviewer\": null\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n  \"message\": \"This action is unauthorized.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"No query results for model [App\\\\Models\\\\PaymentRequest] 999\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Approve or reject a payment request",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/payment-requests\/:paymentRequest_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/payment-requests\/:paymentRequest_id",
+                            "variable": [
+                                {
+                                    "id": "paymentRequest_id",
+                                    "key": "paymentRequest_id",
+                                    "value": 1,
+                                    "description": "The ID of the paymentRequest."
+                                },
+                                {
+                                    "id": "paymentRequest",
+                                    "key": "paymentRequest",
+                                    "value": 1,
+                                    "description": "The ID of the payment request."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"status\":\"approved\"}"
+                        },
+                        "description": "Transitions a `pending` payment request to `approved` or `rejected`.\nOnly users with the `finance` role may perform this action, and only\nrequests currently `pending` can be transitioned. The exchange rate\nstored on the request is never re-fetched."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"status\": \"approved\",\n    \"amount_local\": \"550.00\",\n    \"currency_code\": \"BRL\",\n    \"amount_eur\": \"100.00\",\n    \"exchange_rate\": \"5.500000\",\n    \"rate_source\": \"exchangerate-api.com\",\n    \"rate_fetched_at\": \"2026-06-12T12:00:00.000000Z\",\n    \"description\": \"Office supplies\",\n    \"expires_at\": \"2026-06-14T12:00:00.000000Z\",\n    \"created_at\": \"2026-06-12T12:00:00.000000Z\",\n    \"user\": { \"id\": 1, \"name\": \"Alice Ferreira\" },\n    \"reviewer\": { \"id\": 7, \"name\": \"Finance Admin\" }\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n  \"message\": \"This action is unauthorized.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Only pending requests can be approved.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "type": "string"
+            }
+        ]
+    }
+}

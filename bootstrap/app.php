@@ -1,5 +1,7 @@
 <?php
 
+use App\Exceptions\ExchangeRateUnavailableException;
+use App\Exceptions\InvalidStatusTransitionException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,11 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (\App\Exceptions\ExchangeRateUnavailableException $e) {
+        $exceptions->render(function (ExchangeRateUnavailableException $e) {
             return response()->json(['message' => $e->getMessage()], 503);
         });
 
-        $exceptions->render(function (\App\Exceptions\InvalidStatusTransitionException $e) {
+        $exceptions->render(function (InvalidStatusTransitionException $e) {
             return response()->json(['message' => $e->getMessage()], 422);
         });
     })->create();
