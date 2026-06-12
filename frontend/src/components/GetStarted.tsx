@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Sparkle = ({ className }: { className?: string }) => (
   <svg width="20" height="20" viewBox="0 0 24 24" className={className}>
     <path
@@ -79,12 +81,12 @@ export default function GetStarted() {
 
       {/* CTA */}
       <div className="mt-[60px] flex justify-center px-[120px] pl-[3px]">
-        <a
-          href="#"
-          className="rounded-full bg-buzz-red px-[28px] py-[14px] text-[15px] font-medium tracking-[0.02em] text-[#f4f1f1] transition-colors duration-300 hover:bg-buzz-bright"
+        <Link
+          href="/register"
+          className="rounded-full bg-buzz-red px-[28px] py-[14px] text-[15px] font-medium tracking-[0.02em] text-[#f4f1f1] no-underline transition-colors duration-300 hover:bg-buzz-bright"
         >
           Get started
-        </a>
+        </Link>
       </div>
     </section>
   );

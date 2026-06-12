@@ -1,5 +1,6 @@
 import { svg } from 'framer-motion/m';
 import React from 'react';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -57,15 +58,16 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="mt-[50px] flex gap-[2px] pl-[50px]">
-          <button
-            className="cursor-pointer whitespace-nowrap rounded-full border-none px-[20px] py-[15px] text-[15px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+          <Link
+            href="/register"
+            className="inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-full border-none px-[20px] py-[15px] text-[15px] font-semibold text-white no-underline transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             style={{
               background: "linear-gradient(5deg, #C60402, #C60402)",
               boxShadow: "0 1px 30px rgba(224,26,26,0.40)",
             }}
           >
             Get started
-          </button>
+          </Link>
 
           <button className="group flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border-none bg-[#f4f1f1] text-[#111] transition-all duration-300 hover:bg-white hover:scale-105 active:scale-95 shadow-md">
             <svg
