@@ -15,6 +15,15 @@ export default function LoginPage() {
       />
 
       <div className="relative z-10 flex flex-1 flex-col">
+        
+        {/* NAVBAR - ESTADO DESLOGADO */}
+        <nav className="flex items-center justify-between px-6 sm:px-10 py-5">
+          {/* Logo seguindo o exato design system do dashboard */}
+          <Link href="/" className="text-buzz-red font-bold tracking-[0.35em] text-lg sm:text-xl">
+            B U Z Z P A Y
+          </Link>
+          
+        </nav>
 
         <div className="flex flex-1 items-center justify-center px-6 py-16">
           <div className="w-full max-w-[420px]">

@@ -24,6 +24,27 @@ interface PaymentRequest {
   };
 }
 
+// Mapeamento das moedas para os códigos de país ISO 3166-1 alpha-2 (usados pelo FlagCDN)
+const currencyToCountry: Record<string, string> = {
+  BRL: 'br',
+  USD: 'us',
+  GBP: 'gb',
+  EUR: 'eu'
+};
+
+// Componente limpo e reutilizável para renderizar a logo da bandeira
+const FlagIcon = ({ currencyCode, className = "w-5" }: { currencyCode: string, className?: string }) => {
+  const countryCode = currencyToCountry[currencyCode] || 'eu';
+  return (
+    <img
+      src={`https://flagcdn.com/w40/${countryCode}.png`}
+      srcSet={`https://flagcdn.com/w80/${countryCode}.png 2x`}
+      alt={`${currencyCode} flag`}
+      className={`rounded-[2px] object-cover shrink-0 ${className}`}
+    />
+  );
+};
+
 export default function DashboardPage() {
   const [role, setRole] = useState<Role>('finance'); 
   const [statusFilter, setStatusFilter] = useState<Status | 'all'>('all');
@@ -126,13 +147,16 @@ export default function DashboardPage() {
           
           <div className="lg:col-span-2 space-y-6">
             
-            {/* Card Principal: Mantido o estilo com a mesma borda de 24px */}
+            {/* Card Principal */}
             <div className="bg-[#101010] rounded-[24px] p-8 border border-[#262626] relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-buzz-red/5 rounded-full filter blur-3xl pointer-events-none"></div>
               <div className="flex justify-between items-start mb-4 relative z-10">
                 <div>
-                  <span className="text-muted text-xs uppercase tracking-wider font-semibold">Base Currency Balance (EUR)</span>
-                  <h2 className="text-4xl sm:text-5xl font-bold mt-2 tracking-tight">€ 60,360.50</h2>
+                  <span className="text-muted text-xs uppercase tracking-wider font-semibold">Base Currency Balance (EUR Target Value)</span>
+                  <div className="flex items-center gap-3 mt-2">
+                    <FlagIcon currencyCode="EUR" className="w-10 shadow-sm" />
+                    <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">€ 60,360.50</h2>
+                  </div>
                 </div>
                 <div className="text-xs text-muted bg-[#1a1a1a] border border-[#333] px-3 py-1.5 rounded-[12px]">
                   Real-time API Rates
@@ -202,12 +226,16 @@ export default function DashboardPage() {
                             </div>
                           </div>
                         </td>
-                        <td className="py-4 font-bold text-white">
+                        <td className="py-4 font-bold text-white flex items-center gap-2 h-[72px]">
+                          <FlagIcon currencyCode={req.currency_code} className="w-[18px] opacity-90" />
                           {req.amount_local.toLocaleString('en-US', { style: 'currency', currency: req.currency_code })}
                         </td>
                         <td className="py-4 hidden md:table-cell text-muted">
-                          <p className="font-medium text-white">€ {req.amount_eur.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-                          <p className="text-[10px] text-muted truncate max-w-[150px]">1 {req.currency_code} = {req.exchange_rate}</p>
+                          <div className="flex items-center gap-1.5 font-medium text-white">
+                            <FlagIcon currencyCode="EUR" className="w-[14px]" /> 
+                            € {req.amount_eur.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                          </div>
+                          <p className="text-[10px] text-muted truncate max-w-[150px] mt-0.5">1 {req.currency_code} = {req.exchange_rate}</p>
                         </td>
                         <td className="py-4">
                           <span className={`px-3 py-1.5 rounded-[8px] text-[10px] font-bold uppercase tracking-wider border ${
@@ -246,7 +274,6 @@ export default function DashboardPage() {
           {/* COLUNA DA DIREITA (Formulário) */}
           <div className="space-y-6">
             
-            {/* Formulário com Inputs baseados no Login */}
             <div className="bg-[#101010] border border-[#262626] rounded-[24px] p-6 sm:p-8 relative">
               <div className="mb-6">
                 <h3 className="font-bold text-xl tracking-tight mb-1">Create Request</h3>
@@ -270,15 +297,21 @@ export default function DashboardPage() {
                 
                 <div>
                   <label className="block text-sm text-white font-medium mb-2">Currency</label>
-                  <select 
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                    className="w-full bg-[#1a1a1a] border border-[#333] rounded-[16px] py-3.5 px-4 text-white focus:outline-none focus:border-buzz-red transition-colors cursor-pointer appearance-none"
-                  >
-                    <option value="BRL">BRL - Brazilian Real</option>
-                    <option value="USD">USD - US Dollar</option>
-                    <option value="GBP">GBP - UK Pound</option>
-                  </select>
+                  <div className="relative">
+                    {/* Renderiza a bandeira dentro do select dinamicamente */}
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                      <FlagIcon currencyCode={currency} className="w-5" />
+                    </div>
+                    <select 
+                      value={currency}
+                      onChange={(e) => setCurrency(e.target.value)}
+                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-[16px] py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-buzz-red transition-colors cursor-pointer appearance-none"
+                    >
+                      <option value="BRL">BRL - Brazilian Real</option>
+                      <option value="USD">USD - US Dollar</option>
+                      <option value="GBP">GBP - UK Pound</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>
@@ -295,8 +328,14 @@ export default function DashboardPage() {
 
                 <div className="bg-[#151515] border border-dashed border-[#333] rounded-[16px] p-4 flex flex-col items-center justify-center text-center">
                   <span className="text-[11px] text-muted uppercase tracking-wider font-semibold">Estimated Value</span>
-                  <span className="text-2xl font-bold text-white mt-1">
-                    € {parseFloat(estimatedEur).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  <div className="flex items-center gap-2 mt-1">
+                    <FlagIcon currencyCode="EUR" className="w-[18px] opacity-90" />
+                    <span className="text-2xl font-bold text-white">
+                      € {parseFloat(estimatedEur).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-muted mt-2 flex items-center gap-1 justify-center">
+                    1 <FlagIcon currencyCode={currency} className="w-3 mx-0.5" /> {currency} = {mockCurrentRates[currency]} EUR
                   </span>
                 </div>
 
