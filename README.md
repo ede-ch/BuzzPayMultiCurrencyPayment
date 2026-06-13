@@ -14,6 +14,11 @@ A REST API built with Laravel 12 for managing multi-currency payment requests. E
 
 The backend (Laravel API) and frontend (Next.js) are deployed separately.
 
+### Live URLs
+
+- **Frontend:** https://frontend-five-pi-4z1y25isgg.vercel.app
+- **Backend API:** https://buzzpay-api-production.up.railway.app/api
+
 ### Backend (Railway)
 
 1. Create a project on [Railway](https://railway.app) and choose **Deploy from GitHub repo**,
