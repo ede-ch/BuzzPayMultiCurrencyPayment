@@ -10,6 +10,52 @@ A REST API built with Laravel 12 for managing multi-currency payment requests. E
 
 [BuzzPay design prototype on Figma](https://www.figma.com/design/qatu56i2WXD96RHtVsdUs9/BuzzPay?node-id=0-1&t=j3vPVRG1nBc4ccwH-1)
 
+## Deployment
+
+The backend (Laravel API) and frontend (Next.js) are deployed separately.
+
+### Backend (Railway)
+
+1. Create a project on [Railway](https://railway.app) and choose **Deploy from GitHub repo**,
+   selecting this repository (root directory, not `frontend/`).
+2. Add a **MySQL** database plugin to the project.
+3. In the Laravel service's **Variables** tab, set:
+
+   | Variable | Value |
+   |----------|-------|
+   | `APP_NAME` | `BuzzPay` |
+   | `APP_ENV` | `production` |
+   | `APP_DEBUG` | `false` |
+   | `APP_KEY` | generate locally with `php artisan key:generate --show` and paste the result |
+   | `APP_URL` | the public Railway URL of this service |
+   | `DB_CONNECTION` | `mysql` |
+   | `DB_URL` | `${{MySQL.MYSQL_URL}}` (reference variable from the MySQL plugin) |
+   | `EXCHANGE_RATE_API_URL` | `https://api.exchangerate-api.com/v4/latest` |
+   | `EXCHANGE_RATE_CACHE_TTL` | `3600` |
+   | `CORS_ALLOWED_ORIGINS` | the deployed frontend URL (e.g. `https://buzzpay.vercel.app`) |
+
+4. Railway builds with Nixpacks and runs the `Procfile`, which applies migrations
+   and starts the server: `php artisan migrate --force && php artisan serve --host 0.0.0.0 --port $PORT`.
+5. Seed the database once (after the first successful deploy) via the Railway
+   CLI or the service's shell:
+
+   ```bash
+   php artisan db:seed
+   ```
+
+### Frontend (Vercel)
+
+1. Run `vercel login` inside `frontend/` and follow the browser prompt.
+2. Run `vercel` (or `vercel --prod` for production) and accept the defaults
+   (root directory: `frontend`, framework: Next.js).
+3. In the Vercel project settings, add the environment variable:
+
+   | Variable | Value |
+   |----------|-------|
+   | `NEXT_PUBLIC_API_URL` | `https://<your-railway-app>.up.railway.app/api` |
+
+4. Redeploy so the new environment variable takes effect.
+
 ## Requirements
 
 - PHP 8.2+
