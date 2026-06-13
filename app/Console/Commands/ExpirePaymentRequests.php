@@ -23,7 +23,7 @@ class ExpirePaymentRequests extends Command
 
             return self::SUCCESS;
         } catch (\Exception $e) {
-            Log::error('Erro ao expirar pagamentos: '.$e->getMessage());
+            Log::error('Failed to expire pending payment requests: '.$e->getMessage());
             $this->error('Failed to execute expiration. Check the logs.');
 
             return self::FAILURE;
