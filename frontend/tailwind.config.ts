@@ -27,6 +27,7 @@ const config: Config = {
           DEFAULT: "#a39a9c",
           dark: "#b7afb1",
           light: "#b7afb1", // Adicionado para compatibilidade com o redesign
+          default: "#a39a9c", // gera text-muted-default / border-muted-default / bg-muted-default
         },
         // Cores de fundo e borda adicionadas para o redesign
         "card-bg": "#141112",

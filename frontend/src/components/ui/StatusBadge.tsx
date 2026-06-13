@@ -6,19 +6,19 @@ const STATUS_CONFIG: Record<
 > = {
   pending: {
     label: "Pending",
-    className: "text-coin-yellow border-coin-yellow/40 bg-coin-yellow/10",
+    className: "bg-[#3d2b00] text-[#f2a900] border-[#5c4000]",
   },
   approved: {
     label: "Approved",
-    className: "text-[#3ecf8e] border-[#3ecf8e]/40 bg-[#3ecf8e]/10",
+    className: "bg-[#14321a] text-[#4ade80] border-[#1f5c2e]",
   },
   rejected: {
     label: "Rejected",
-    className: "text-buzz-bright border-buzz-bright/40 bg-buzz-bright/10",
+    className: "bg-[#3a0a0a] text-[#ef2630] border-[#5c1010]",
   },
   expired: {
     label: "Expired",
-    className: "text-muted-default border-muted-default/40 bg-muted-default/10",
+    className: "bg-[#1a1a1a] text-muted border-[#333]",
   },
 };
 
@@ -31,7 +31,7 @@ export default function StatusBadge({
 
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.04em] ${config.className}`}
+      className={`px-3 py-1.5 rounded-[8px] text-[10px] font-bold uppercase tracking-wider border ${config.className}`}
     >
       {config.label}
     </span>
