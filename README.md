@@ -4,7 +4,7 @@ A REST API built with Laravel 12 for managing multi-currency payment requests. E
 
 ## Demo / Project Video
 
-> ⚠️ TODO: substituir por um link real do vídeo/demo antes da entrega (2026-06-13).
+[Assista ao vídeo de demonstração](https://drive.google.com/file/d/1MZpmZpHqK6gLenNs5U0BA_klonz4dleB/view?usp=sharing)
 
 ## Figma Prototype
 
