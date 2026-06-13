@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, AlertCircle } from "lucide-react";
 import { register, ApiError, RegisterPayload } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { ISO_4217_CURRENCIES, getCurrencySymbol } from "@/lib/currencies";
+import CurrencySelect from "@/components/ui/CurrencySelect";
 
 const initialForm: RegisterPayload = {
   name: "",
@@ -150,21 +150,11 @@ export default function RegisterForm() {
             <label htmlFor="currency_code" className={labelClassName}>
               Currency
             </label>
-            <select
-              id="currency_code"
+            <CurrencySelect
               value={form.currency_code}
-              onChange={(e) => update("currency_code", e.target.value)}
-              className={inputClassName}
-            >
-              {ISO_4217_CURRENCIES.map((code) => {
-                const symbol = getCurrencySymbol(code);
-                return (
-                  <option key={code} value={code} className="bg-ink">
-                    {symbol ? `${code} (${symbol})` : code}
-                  </option>
-                );
-              })}
-            </select>
+              onChange={(code) => update("currency_code", code)}
+              buttonClassName="rounded-[12px] border border-[#363636] bg-white/5 px-4 py-3 text-sm text-[#f4f1f1] focus:border-buzz-red focus:ring-2 focus:ring-buzz-red/20"
+            />
           </div>
         </div>
 
