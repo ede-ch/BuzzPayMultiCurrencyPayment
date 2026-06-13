@@ -1,21 +1,21 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Solutions from "@/components/Solutions";
-import Technology from "@/components/Technology";
-import GetStarted from "@/components/GetStarted";
-import Footer from "@/components/Footer";
-import CardStack from "@/components/CardStack";
+import Navbar from "@/components/landing/Navbar";
+import Hero from "@/components/landing/Hero";
+import About from "@/components/landing/About";
+import Solutions from "@/components/landing/Solutions";
+import Technology from "@/components/landing/Technology";
+import GetStarted from "@/components/landing/GetStarted";
+import Footer from "@/components/landing/Footer";
+import CardStack from "@/components/landing/CardStack";
 
 export default function Home() {
   return (
     <main className="relative w-full overflow-hidden bg-ink text-[#f4f1f1]">
-      {/* ambient background glows */}
+      {/* ambient background glow — Solutions / Technology vignette */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(110% 80% at 50% 54%, rgba(120, 26, 31, 0.31) 0%, rgba(60,14,18,0.18) 40%, rgba(11,7,8,0) 70%)"
+            "radial-gradient(110% 80% at 50% 58%, rgba(120, 26, 31, 0.31) 0%, rgba(60,14,18,0.18) 40%, rgba(11,7,8,0) 70%)"
         }}
       />
 

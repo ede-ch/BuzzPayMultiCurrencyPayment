@@ -6,6 +6,15 @@ export default function Hero() {
   return (
     <section className="relative mx-auto min-h-screen max-w-[1280px] px-14 font-manrope">
 
+      {/* ambient background glow — behind BUZZPAY title */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(100% 90% at 52% 35%, rgba(120, 26, 31, 0.35) 0%, rgba(60,14,18,0.16) 45%, rgba(11,7,8,0) 75%)",
+        }}
+      />
+
       {/* headline container */}
       <div className="pt-[90px] select-none">
         <div className="w-fit mx-auto flex flex-col">
