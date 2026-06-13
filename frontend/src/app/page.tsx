@@ -10,12 +10,21 @@ import CardStack from "@/components/landing/CardStack";
 export default function Home() {
   return (
     <main className="relative w-full overflow-hidden bg-ink text-[#f4f1f1]">
+      {/* ambient background glow — behind BUZZPAY title in the Hero */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(100% 20% at 52% 18%, rgba(120, 26, 31, 0.35) 0%, rgba(60,14,18,0.16) 55%, rgba(11,7,8,0) 100%)"
+        }}
+      />
+
       {/* ambient background glow — Solutions / Technology vignette */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(110% 80% at 50% 58%, rgba(120, 26, 31, 0.31) 0%, rgba(60,14,18,0.18) 40%, rgba(11,7,8,0) 70%)"
+            "radial-gradient(100% 20% at 50% 85%, rgba(120, 26, 31, 0.31) 0%, rgba(60,14,18,0.18) 30%, rgba(11,7,8,0) 70%)"
         }}
       />
 
