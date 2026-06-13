@@ -34,7 +34,6 @@ export default function Technology() {
         </div>
       </div>
 
-      {/* technology cards */}
       <div className="mt-[60px] grid grid-cols-2 gap-[24px] px-[120px] sm:grid-cols-3 md:grid-cols-6 pl-[3px]">
         {techCards.map((card) => (
           <div
@@ -64,7 +63,6 @@ export default function Technology() {
         ))}
       </div>
 
-      {/* description */}
       <div className="mt-[30px] flex justify-end max-w-[1055px]">
         <p className="max-w-[600px] text-left text-[16px] leading-[1.5] text-muted-dark pt-[20px]">
           Engineered with a powerful Next.js 14 frontend and a bulletproof

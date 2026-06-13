@@ -42,12 +42,10 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="relative mx-auto max-w-[1280px] px-4 pb-[40px] pt-[40px]">
-      {/* decorative sparkle */}
       <div className="flex justify-center">
         <Sparkle className="h-[40px] w-[40px] text-[#f4f1f1] animate-twinkle" />
       </div>
 
-      {/* social icons */}
       <div className="mt-[30px] flex items-center justify-center gap-[24px]">
         {socialLinks.map(({ Icon, href, label }, index) => (
           <div key={label} className="flex items-center gap-[24px]">
@@ -68,7 +66,6 @@ export default function Footer() {
       </div>
 
 
-      {/* bottom row */}
       <div className="mt-[24px] flex flex-col items-center justify-between gap-3 text-[13px] text-muted-dark sm:flex-row">
         <span>&copy; {new Date().getFullYear()} BuzzPay</span>
         <span className="flex items-center gap-[8px]">

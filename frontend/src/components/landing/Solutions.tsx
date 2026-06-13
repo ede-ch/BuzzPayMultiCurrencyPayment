@@ -7,7 +7,6 @@ const Sparkle = ({ className }: { className?: string }) => (
   </svg>
 );
 
-/* Conversão multi-moeda: moedas com setas de câmbio orbitando */
 const CurrencyExchangeIcon = () => (
   <svg width="64" height="64" viewBox="0 0 48 48" fill="none" className="drop-shadow-[0_8px_10px_rgba(0,0,0,0.45)]">
     <defs>
@@ -20,7 +19,6 @@ const CurrencyExchangeIcon = () => (
         <stop offset="100%" stopColor="#f4f1f1" stopOpacity="0.04" />
       </linearGradient>
     </defs>
-    {/* camadas de espessura (efeito 3D) */}
     <circle cx="19.5" cy="20" r="13" fill="#000" opacity="0.35" />
     <circle cx="33.5" cy="34" r="13" fill="#000" opacity="0.25" />
     <circle cx="17" cy="17" r="13" fill="url(#coinGradRed)" stroke="#C60402" strokeWidth="2" />
@@ -34,10 +32,8 @@ const CurrencyExchangeIcon = () => (
   </svg>
 );
 
-/* Rastreamento do ciclo de pagamento: relógio com ponteiro girando e pulso central */
 const PaymentLifecycleIcon = () => (
   <svg width="64" height="64" viewBox="0 0 48 48" fill="none" className="drop-shadow-[0_8px_10px_rgba(0,0,0,0.45)]">
-    {/* camada de espessura (efeito 3D) */}
     <circle cx="26.5" cy="27" r="18" fill="#000" opacity="0.35" />
     <circle cx="24" cy="24" r="18" stroke="#f4f1f1" strokeWidth="1.5" opacity="0.15" />
     <circle
@@ -61,7 +57,6 @@ const PaymentLifecycleIcon = () => (
   </svg>
 );
 
-/* Aprovações/auditoria: escudo com gradiente e check sendo desenhado */
 const ApprovalShieldIcon = () => (
   <svg width="64" height="64" viewBox="0 0 48 48" fill="none" className="drop-shadow-[0_8px_10px_rgba(0,0,0,0.45)]">
     <defs>
@@ -70,7 +65,6 @@ const ApprovalShieldIcon = () => (
         <stop offset="100%" stopColor="#C60402" stopOpacity="0.04" />
       </linearGradient>
     </defs>
-    {/* camada de espessura (efeito 3D) */}
     <path
       d="M24 5 L40 11 V22 C40 32 33 39 24 43 C15 39 8 32 8 22 V11 Z"
       transform="translate(2.5, 3)"
@@ -128,7 +122,6 @@ export default function Solutions() {
         </div>
       </div>
 
-      {/* solution cards */}
       <div className="mt-[60px] grid grid-cols-1 gap-[24px] px-[120px] md:grid-cols-3 pl-[3px]">
         {solutionCards.map((card) => (
           <div
@@ -150,7 +143,6 @@ export default function Solutions() {
         ))}
       </div>
 
-      {/* description */}
       <p className="mx-auto mt-[20px] text-left text-[16px] leading-[1.8] text-muted-dark px-[90px] pt-[20px] pl-[1px]">
         A streamlined financial ecosystem engineered to connect international
         employees and financial auditors. Our platform automates currency

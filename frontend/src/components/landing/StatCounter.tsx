@@ -33,7 +33,7 @@ export default function StatCounter({
     if (!inView) return;
     const controls = animate(0, to, {
       duration,
-      ease: [0.16, 1, 0.3, 1], // easeOutCubic-ish
+      ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setValue(v),
     });
     return () => controls.stop();

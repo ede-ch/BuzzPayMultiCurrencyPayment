@@ -6,11 +6,9 @@ export default function Hero() {
   return (
     <section className="relative mx-auto min-h-screen max-w-[1280px] px-14 font-manrope">
 
-      {/* headline container */}
       <div className="pt-[90px] select-none">
         <div className="w-fit mx-auto flex flex-col">
 
-          {/* TITLE BUZZPAY */}
           <div
             className="flex font-bold leading-none text-buzz-red uppercase whitespace-nowrap drop-shadow-[0_8px_8px_rgba(0,0,0,0.70)]"
             style={{ fontSize: "clamp(10px, 10vw, 500px)" }}
@@ -27,17 +25,14 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* UNIFY PAYMENTS — 75% da largura do título, espaçados nas pontas */}
           <div
             className="w-[52%] mt-[1.2vw] flex justify-between items-baseline leading-[1] whitespace-nowrap text-white drop-shadow-[0_5px_6px_rgba(0,0,0,0.31)] font-manrope"
             style={{ fontSize: "clamp(36px, 4.5vw, 96px)" }}
           >
-            {/* Trocamos pr por pl-[40px] -> Agora o UNIFY desencosta da esquerda e vai para a direita */}
             <span className="font-extralight tracking-[20px] pl-[6px]">UNIFY</span>
             <strong className="font-bold tracking-[-1px]">PAYMENTS</strong>
           </div>
 
-          {/* EMPOWER TEAMS — alinhado à borda direita do título */}
           <div
             className="w-[52%] self-end leading-[1.04] whitespace-nowrap text-white drop-shadow-[0_5px_6px_rgba(0,0,0,0.31)] font-manrope"
             style={{ fontSize: "clamp(36px, 4.5vw, 96px)" }}
@@ -49,14 +44,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* lower-left block */}
-      <div className="relative mt-3 max-w-[500px]"> {/* Aumentado aqui para a div pai dar espaço */}
+      <div className="relative mt-3 max-w-[500px]">
 
         <p className="m-0 max-w-[600px] text-[15px] leading-[1.8] text-muted-dark font-medium tracking-wide text-left pl-[50px]">
           Manage global team expenses and payouts in real time. Convert currencies instantly and unify your business finances in a single platform
         </p>
 
-        {/* CTAs */}
         <div className="mt-[50px] flex gap-[2px] pl-[50px]">
           <Link
             href="/register"

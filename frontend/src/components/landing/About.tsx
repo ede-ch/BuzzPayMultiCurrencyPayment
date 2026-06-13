@@ -13,7 +13,6 @@ export default function About() {
   return (
     <section id="about" className="relative mx-auto max-w-[1280px] px-14 pb-[100px] pt-[120px] pl-[100px]">
       <div className="grid grid-cols-1 items-start gap-[60px] md:grid-cols-2">
-        {/* left */}
         <div className="relative">
           <div className="inline-flex items-center rounded-full border border-buzz-red/60 px-[20px] py-[15px] text-[15px] tracking-[0.02em] text-[#f0eded]">
             About
@@ -29,7 +28,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* right paragraph */}
         <div className="flex justify-end pt-1.9 max-w-[470px]">
           <p className="m-0 max-w-[430px] text-right text-[16px] leading-[1,8]text-muted-2 px-[15px] pt-[40px] pl-[10px]">
             Our multi-currency solution seamlessly unifies cross-border
@@ -41,9 +39,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* stats */}
       <div className="mt-[92px] flex items-center justify-center">
-        {/* Primeiro Bloco */}
         <div className="pr-[48px]  ">
           <StatCounter 
             to={150} 
@@ -56,7 +52,6 @@ export default function About() {
         
         <div className="h-[66px] w-[2px] bg-divider-red" />
         
-        {/* Segundo Bloco */}
         <div className="px-[48px]">
           <StatCounter
             to={2.0}
@@ -70,7 +65,6 @@ export default function About() {
 
         <div className="h-[66px] w-[2px] bg-divider-red" />
         
-        {/* Terceiro Bloco */}
         <div className="pl-[48px]">
           <StatCounter
             to={4.9}

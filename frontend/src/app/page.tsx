@@ -10,7 +10,6 @@ import CardStack from "@/components/landing/CardStack";
 export default function Home() {
   return (
     <main className="relative w-full overflow-hidden bg-ink text-[#f4f1f1]">
-      {/* ambient background glow — behind BUZZPAY title in the Hero */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
@@ -19,7 +18,6 @@ export default function Home() {
         }}
       />
 
-      {/* ambient background glow — Solutions / Technology vignette */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
@@ -29,7 +27,6 @@ export default function Home() {
       />
 
 
-      {/* top hairline */}
       <div
         className="absolute left-0 right-0 top-0 z-30 h-[3px]"
         style={{
@@ -38,7 +35,6 @@ export default function Home() {
         }}
       />
 
-      {/* bottom hairline */}
       <div
         className="absolute left-0 right-0 bottom-0 z-30 h-[3px]"
         style={{
@@ -47,7 +43,6 @@ export default function Home() {
         }}
       />
 
-      {/* decorative animated card stack (spans hero into about) */}
       <CardStack />
 
       <div className="relative z-10">

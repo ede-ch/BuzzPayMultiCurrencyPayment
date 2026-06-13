@@ -47,7 +47,6 @@ export default function GetStarted() {
         </div>
       </div>
 
-      {/* step cards */}
       <div className="mt-[60px] grid grid-cols-1 gap-[24px] px-[120px] md:grid-cols-2 pl-[3px]">
         {steps.map((step, index) => (
           <div
@@ -79,7 +78,6 @@ export default function GetStarted() {
         ))}
       </div>
 
-      {/* CTA */}
       <div className="mt-[60px] flex justify-center px-[120px] pl-[3px]">
         <Link
           href="/register"
