@@ -1,5 +1,6 @@
 import Link from "next/link";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/auth/LoginForm";
+import Footer from "@/components/landing/Footer";
 
 export default function LoginPage() {
   return (
@@ -30,6 +31,8 @@ export default function LoginPage() {
             <LoginForm />
           </div>
         </div>
+
+        <Footer />
       </div>
     </main>
   );

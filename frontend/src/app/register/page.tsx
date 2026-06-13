@@ -1,5 +1,6 @@
 import Link from "next/link";
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/auth/RegisterForm";
+import Footer from "@/components/landing/Footer";
 
 export default function RegisterPage() {
   return (
@@ -31,6 +32,8 @@ export default function RegisterPage() {
             <RegisterForm />
           </div>
         </div>
+
+        <Footer />
       </div>
     </main>
   );
