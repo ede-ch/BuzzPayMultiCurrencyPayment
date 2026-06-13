@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -18,7 +19,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'country' => ['required', 'string', 'max:100'],
-            'currency_code' => ['required', 'string', 'size:3'],
+            'currency_code' => ['required', 'string', 'size:3', 'regex:/^[A-Z]{3}$/', Rule::in(config('currencies.iso4217'))],
         ];
     }
 }
