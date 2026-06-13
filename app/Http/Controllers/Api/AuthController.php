@@ -107,7 +107,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'The provided credentials are incorrect.'], 401);
         }
 
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
