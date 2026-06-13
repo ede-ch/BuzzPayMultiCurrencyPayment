@@ -6,6 +6,10 @@ A REST API built with Laravel 12 for managing multi-currency payment requests. E
 
 > ⚠️ TODO: substituir por um link real do vídeo/demo antes da entrega (2026-06-13).
 
+## Figma Prototype
+
+[BuzzPay design prototype on Figma](https://www.figma.com/design/qatu56i2WXD96RHtVsdUs9/BuzzPay?node-id=0-1&t=j3vPVRG1nBc4ccwH-1)
+
 ## Requirements
 
 - PHP 8.2+
