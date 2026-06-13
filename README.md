@@ -236,6 +236,21 @@ All endpoints require `Authorization: Bearer {token}` header.
 }
 ```
 
+### Exchange Rates
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/exchange-rate?currency={code}` | Get the current EUR → `{code}` exchange rate (auth required) |
+
+**Response:**
+```json
+{
+  "rate": 5.5,
+  "source": "exchangerate-api.com",
+  "fetched_at": "2026-06-12T12:00:00.000000Z"
+}
+```
+
 ### HTTP Status Codes
 
 | Code | Meaning |

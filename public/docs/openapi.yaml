@@ -11,6 +11,9 @@ tags:
     name: Authentication
     description: "\nEndpoints for registering, authenticating and logging out users via\nLaravel Sanctum personal access tokens."
   -
+    name: 'Exchange Rates'
+    description: "\nLook up the current EUR exchange rate for a currency. Useful for showing\na live conversion estimate before submitting a payment request."
+  -
     name: 'Payment Requests'
     description: "\nManage multi-currency payment requests. All endpoints in this group\nrequire a valid Sanctum bearer token (`Authorization: Bearer {token}`).\nEmployees can create requests and view their own; finance users can\nview all requests and approve or reject pending ones."
 components:
@@ -256,6 +259,94 @@ paths:
                     example: Unauthenticated.
       tags:
         - Authentication
+  /api/exchange-rate:
+    get:
+      summary: 'Get the current exchange rate for a currency'
+      operationId: getTheCurrentExchangeRateForACurrency
+      description: ''
+      parameters:
+        -
+          in: query
+          name: currency
+          description: 'ISO 4217 3-letter currency code.'
+          example: BRL
+          required: true
+          schema:
+            type: string
+            description: 'ISO 4217 3-letter currency code.'
+            example: BRL
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  rate: 5.5
+                  source: exchangerate-api.com
+                  fetched_at: '2026-06-12T12:00:00.000000Z'
+                properties:
+                  rate:
+                    type: number
+                    example: 5.5
+                  source:
+                    type: string
+                    example: exchangerate-api.com
+                  fetched_at:
+                    type: string
+                    example: '2026-06-12T12:00:00.000000Z'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The currency field is invalid.'
+                  errors:
+                    currency:
+                      - 'The selected currency is invalid.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The currency field is invalid.'
+                  errors:
+                    type: object
+                    properties:
+                      currency:
+                        type: array
+                        example:
+                          - 'The selected currency is invalid.'
+                        items:
+                          type: string
+        503:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Failed to fetch exchange rate from exchangerate-api.com'
+                properties:
+                  message:
+                    type: string
+                    example: 'Failed to fetch exchange rate from exchangerate-api.com'
+      tags:
+        - 'Exchange Rates'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  description: 'Must match the regex /^[A-Z]{3}$/. Must be 3 characters.'
+                  example: vmq
+              required:
+                - currency
   /api/payment-requests:
     get:
       summary: 'List payment requests'

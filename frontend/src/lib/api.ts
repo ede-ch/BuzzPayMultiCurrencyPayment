@@ -170,6 +170,22 @@ export function createPaymentRequest(
   });
 }
 
+export interface ExchangeRateResponse {
+  rate: number;
+  source: string;
+  fetched_at: string;
+}
+
+export function getExchangeRate(
+  token: string,
+  currency: string
+): Promise<ExchangeRateResponse> {
+  return request<ExchangeRateResponse>("/exchange-rate", {
+    token,
+    query: { currency },
+  });
+}
+
 export function reviewPaymentRequest(
   token: string,
   id: number,

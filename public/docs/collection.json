@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Buzzvel Multi-Currency Payment API",
-        "_postman_id": "8483da77-34ea-42b8-a3cb-933849edf86e",
+        "_postman_id": "567641fc-50f4-465f-a00f-d11117a3f1f1",
         "description": "REST API for submitting, reviewing and approving multi-currency payment requests across employees in different countries.",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -141,6 +141,66 @@
                             "header": [],
                             "code": 401,
                             "body": "{\n  \"message\": \"Unauthenticated.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Exchange Rates",
+            "description": "\nLook up the current EUR exchange rate for a currency. Useful for showing\na live conversion estimate before submitting a payment request.",
+            "item": [
+                {
+                    "name": "Get the current exchange rate for a currency",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/exchange-rate",
+                            "query": [
+                                {
+                                    "key": "currency",
+                                    "value": "BRL",
+                                    "description": "ISO 4217 3-letter currency code.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/exchange-rate?currency=BRL"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"currency\":\"vmq\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"rate\": 5.5,\n  \"source\": \"exchangerate-api.com\",\n  \"fetched_at\": \"2026-06-12T12:00:00.000000Z\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"The currency field is invalid.\",\n  \"errors\": { \"currency\": [\"The selected currency is invalid.\"] }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 503,
+                            "body": "{\n  \"message\": \"Failed to fetch exchange rate from exchangerate-api.com\"\n}",
                             "name": ""
                         }
                     ]

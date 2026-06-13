@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ExchangeRateController;
 use App\Http\Controllers\Api\PaymentRequestController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,5 @@ Route::middleware('auth:sanctum')->prefix('payment-requests')->group(function ()
     Route::get('{paymentRequest}', [PaymentRequestController::class, 'show']);
     Route::patch('{paymentRequest}', [PaymentRequestController::class, 'update']);
 });
+
+Route::middleware('auth:sanctum')->get('exchange-rate', [ExchangeRateController::class, 'show']);
